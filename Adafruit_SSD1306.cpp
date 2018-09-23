@@ -165,6 +165,15 @@ Adafruit_GFX(SSD1306_LCDWIDTH, SSD1306_LCDHEIGHT) {
   rst = reset;
 }
 
+// initializer for I2C - we set up all pins - SDA, SCL, RST
+Adafruit_SSD1306::Adafruit_SSD1306(int8_t sda_in, int8_t scl_in, int8_t reset) :
+Adafruit_GFX(SSD1306_LCDWIDTH, SSD1306_LCDHEIGHT) {
+  sclk = dc = cs = sid = -1;
+  rst = reset;
+  sda = sda_in;
+  scl = scl_in;
+}
+
 
 void Adafruit_SSD1306::begin(uint8_t vccstate, uint8_t i2caddr, bool reset) {
   _vccstate = vccstate;
@@ -203,7 +212,7 @@ void Adafruit_SSD1306::begin(uint8_t vccstate, uint8_t i2caddr, bool reset) {
   else
   {
     // I2C Init
-    Wire.begin();
+    Wire.begin(sda, scl);
 #ifdef __SAM3X8E__
     // Force 400 KHz I2C, rawr! (Uses pins 20, 21 for SDA, SCL)
     TWI1->TWI_CWGR = 0;
