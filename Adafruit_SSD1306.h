@@ -53,8 +53,8 @@ All text above, and the splash screen must be included in any redistribution
 #define INVERSE 2
 
 #define SSD1306_I2C_ADDRESS   0x3C  // 011110+SA0+RW - 0x3C or 0x3D
-#define SDA_PIN 4 // for common i2c should be 21
-#define SCL_PIN 15 // for common i2c should be 22
+#define SDA_PIN 21 // for common i2c should be 21
+#define SCL_PIN 22 // for common i2c should be 22
 // Address for 128x32 is 0x3C
 // Address for 128x64 is 0x3D (default) or 0x3C (if SA0 is grounded)
 
@@ -172,6 +172,7 @@ class Adafruit_SSD1306 : public Adafruit_GFX {
 
  private:
   int8_t _i2caddr, _vccstate, sid, sclk, dc, rst, cs;
+  int8_t sda = SDA_PIN, scl = SCL_PIN;
   void fastSPIwrite(uint8_t c);
 
   boolean hwSPI;
